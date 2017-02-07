@@ -1,3 +1,7 @@
+Dir[File.expand_path('../lib/', __FILE__) << '/*.rb'].each do |file|
+  require_dependency file
+end
+
 Redmine::Plugin.register :redmine_mail_integration do
   name 'Redmine Mail Integration plugin'
   author 'Author name'
