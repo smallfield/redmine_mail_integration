@@ -32,3 +32,13 @@ class MailHandler
   end
   alias_method_chain :dispatch, :integration
 end
+
+# Issueモデルへのパッチ当て
+module IssuePatch
+  def self.included(base)
+    base.class_eval do
+      has_many :mail_message, dependent: :destroy
+    end
+  end
+end
+Issue.send(:include, IssuePatch)
