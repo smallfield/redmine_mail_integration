@@ -2,12 +2,22 @@ redmine_mail_integration
 ===
 
 ## Description
-Redmineでメール受信時に、既存メール取り込みチケットへの返信メールだったら、その既存のチケットに紐付けるようにするためのプラグイン。
+Plugin that correlate emails to the existing Redmine issues when recieved.
 
-もとは[こちら](http://d.hatena.ne.jp/coolstyle/20110708/1310100053)で id:coolstyle さんが作成、公開されていたものを、最近のRedmineで動作するように作り直したもの。
+### Behavior
+When Redmine recieved email.....
+
+1. If subject includes ticket ID (ex. #123) or the mail is reply to the Redmine notification email then update the ticket. (This is Redmine default.)
+1. This plugin checks `Message-Id` and `References` headers.
+  1. If `Message-Id` or `References` incluedes known `Message-Id`, update the ticket related to the known `Message-Id`.
+  1. If it seems new message, create a new ticket.
+1. Save `Message-Id` and related ticket(updated or created) ID to the Redmine database. 
+
+### Original Idea
+http://d.hatena.ne.jp/coolstyle/20110708/1310100053
 
 ## Requirement
-Redmine v3.3.1 で動作確認済み。
+Tested on Redmine v3.3.1
 
 ## Install / Usage
 ```
