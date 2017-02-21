@@ -31,6 +31,11 @@ class MailHandler
     end
   end
   alias_method_chain :dispatch, :integration
+
+  def cleanup_body_with_integration(body)
+    "<pre>From: #{email.from.join(",")}\nTo: #{email.to.join(",")}\nCc: #{email.cc.join(",")}\nSubject: #{email.subject.to_s}\n\n#{cleanup_body_without_integration(body)}</pre>"
+  end
+  alias_method_chain :cleanup_body, :integration
 end
 
 # Issueモデルへのパッチ当て
