@@ -29,6 +29,7 @@ class MailHandler
       msg.save!
       logger.info "MailHandler: Message-Id <#{email.message_id}> is correlated to issue ##{issue.id}"
     end
+    issue
   end
   alias_method_chain :dispatch, :integration
 
